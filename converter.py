@@ -31,13 +31,27 @@ def get_amount(string):
 		return None
 
 def main():
+	currencies = ["USD", "EUR", "AUD", "CAD", "BYN", "KZT", "UAH", "GBP", "CZK", "CHF", "JPY"]
+	info = "Supported currencies:"
+	for currency in currencies:
+		info += " " + currency
+	print(info)
+
 	amount = get_amount(input("Amount in rubles: "))
 	if amount == None:
 		print("Error: Wrong amount.")
 		return
+	
 	currency = input("Сonvert to: ").upper()
+	if currency not in currencies:
+		print("Error: Unknown currency.")
+		return
+	
 	price = getPrice(currency)
-	print("Result:", amount / price, currency, end = "\n\n")
+	if price == None:
+		print("Connection failed")
+	else:
+		print("Result: " + str(amount / price) + " " + currency)
 
 if __name__ == '__main__':
     main()
